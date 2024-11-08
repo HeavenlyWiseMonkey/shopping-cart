@@ -1,24 +1,44 @@
 import '../styles/HomePage.css'
 import Loading from './Loading';
 
-function Card(item) {
-    item = item.item;
+function Info(item, quantity) {
+    return {item, quantity}
+}
+
+function Card({item, addToCart, quantity}) {
     return (
         <div className='card'>
             <img src={item.image} />
             <p>{item.title}</p>
             <p>{item.description}</p>
             <p>${item.price}</p>
-            <p>{item.rating.rate} out of {item.rating.count}</p>
+            <Rating rate={item.rating.rate} count={item.rating.count} />
+            <button onClick={() => addToCart(Info(item, 1))}>Add to Cart</button>
+            {(quantity > 0) && <p>{quantity} in Cart</p>}
         </div>
     )
 }
 
-export default function HomePage({shopData, loading}) {
+function Rating({rate, count}) {
+    const fullStars = Math.floor(rate/1);
+    const halfStar = (rate % 1) >= 0.5;
+    const emptyStars = 5 - fullStars - ((halfStar) ? 1 : 0);
+
+    return (
+        <div className='rating'>
+            {Array(fullStars).fill(true).map((_, i) => <span key={i} className='star on' />)}
+            {(halfStar) && <span className='star half' />}
+            {Array(emptyStars).fill(true).map((_, i) => <span key={i} className='star off' />)}
+            <span>{count}</span>
+        </div>
+    )
+}
+
+export default function HomePage({shopData, loading, addToCart, getQuantity}) {
     let cards;
     if (shopData) {
         cards = shopData.map((item) =>
-            <Card key={item.id} item={item} />
+            <Card key={item.id} item={item} addToCart={addToCart} quantity={getQuantity(item.id)} />
         );
     }
 

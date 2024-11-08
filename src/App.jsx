@@ -7,8 +7,31 @@ import ShopPage from './components/ShopPage'
 
 function App() {
   const [shopData, setShopData] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [itemQuantity, setItemQuantity] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { goToShopPage } = useParams();
+  const { shop } = useParams();
+
+  function addToCart(info) {
+    const newCart = Array.from(cart);
+    for (let i=0; i<newCart.length; i++) {
+      if (newCart[i].item.id === info.item.id) {
+        newCart[i].quantity++;
+        setCart(newCart);
+        setItemQuantity(itemQuantity+1);
+        return;
+      }
+    }
+    newCart.push(info);
+    setItemQuantity(itemQuantity+1);
+    setCart(newCart);
+  }
+
+  function getQuantity(id) {
+    const found = cart.find((info) => info.item.id === id);
+    if (found) return found.quantity;
+    return 0;
+  }
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products/category/electronics', {mode: 'cors'})
@@ -29,11 +52,11 @@ function App() {
 
   return (
     <div className='main'>
-      <NavigationBar />
-      {(goToShopPage === 'shop-page') ? (
-        <ShopPage shopData={shopData} loading={loading} />
+      <NavigationBar itemQuantity={(itemQuantity < 100) ? itemQuantity : '99+'} />
+      {(shop === 'shopping-cart') ? (
+        <ShopPage shopData={shopData} loading={loading} cart={cart} />
       ) : (
-        <HomePage shopData={shopData} loading={loading} />
+        <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} />
       )
       }
     </div>
