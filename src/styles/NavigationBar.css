@@ -1,0 +1,24 @@
+.NavigationBar {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #49759C;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 1000;
+}
+
+.shopLink {
+    position: absolute;
+    right: 30px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(229deg) brightness(103%) contrast(102%);
+}
+
+.shopIcon {
+    width: 50px;
+}

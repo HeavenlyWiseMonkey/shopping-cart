@@ -1,0 +1,16 @@
+.HomePage {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.card {
+    border: 1px solid 	#C8C8C8;
+    border-radius: 5px;
+}
+
+.card > img {
+    object-fit: cover;
+    height: 300px;
+}
