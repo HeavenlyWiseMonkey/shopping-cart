@@ -12,7 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const { shop } = useParams();
 
-  function addToCart(info) {
+  function addToCart(info, index) {
     const newCart = Array.from(cart);
     for (let i=0; i<newCart.length; i++) {
       if (newCart[i].item.id === info.item.id) {
@@ -31,6 +31,26 @@ function App() {
     const found = cart.find((info) => info.item.id === id);
     if (found) return found.quantity;
     return 0;
+  }
+
+  function updateQuantity(index, newValue) {
+    const newCart = Array.from(cart);
+    setItemQuantity(itemQuantity-newCart[index].quantity+newValue);
+    newCart[index].quantity = newValue;
+    setCart(newCart);
+  }
+
+  function deleteInfo(id) {
+    const newCart = cart.filter((info) => {
+      if (info.item.id !== id) {
+        return true;
+      }
+      else {
+        setItemQuantity(itemQuantity-info.quantity);
+        return false;
+      }
+    });
+    setCart(newCart);
   }
 
   useEffect(() => {
@@ -52,11 +72,11 @@ function App() {
 
   return (
     <div className='main'>
-      <NavigationBar itemQuantity={(itemQuantity < 100) ? itemQuantity : '99+'} />
+      <NavigationBar itemQuantity={itemQuantity} />
       {(shop === 'shopping-cart') ? (
-        <ShopPage shopData={shopData} loading={loading} cart={cart} />
+        <ShopPage cart={cart} getQuantity={getQuantity} updateQuantity={updateQuantity} deleteInfo={deleteInfo} />
       ) : (
-        <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} />
+        <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       )
       }
     </div>

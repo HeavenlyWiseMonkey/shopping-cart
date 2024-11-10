@@ -1,3 +1,12 @@
 .ShopPage {
     grid-row: 2;
 }
+
+/* .checkOutCard {
+    height: 300px;
+} */
+
+.checkOutCard > img {
+    object-fit: cover;
+    height: 300px;
+}
