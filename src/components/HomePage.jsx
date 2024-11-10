@@ -6,7 +6,7 @@ function Info(item, quantity) {
 }
 
 // Added index
-function Card({item, addToCart, quantity, index}) {
+function Card({item, addToCart, quantity, id}) {
     return (
         <div className='card'>
             <img src={item.image} />
@@ -14,7 +14,7 @@ function Card({item, addToCart, quantity, index}) {
             <p>{item.description}</p>
             <p>${item.price}</p>
             <Rating rate={item.rating.rate} count={item.rating.count} />
-            <button type='button' onClick={() => addToCart(Info(item, 1), index)}>Add to Cart</button>
+            <button type='button' onClick={() => addToCart(Info(item, 1), id)}>Add to Cart</button>
             {(quantity > 0) && <p>{quantity} in Cart</p>}
         </div>
     )
@@ -39,8 +39,8 @@ export default function HomePage({shopData, loading, addToCart, getQuantity}) {
     let cards;
     // Added index
     if (shopData) {
-        cards = shopData.map((item, i=0) =>
-            <Card key={item.id} item={item} addToCart={addToCart} quantity={getQuantity(item.id)} index={i++} />
+        cards = shopData.map((item) =>
+            <Card key={item.id} item={item} addToCart={addToCart} quantity={getQuantity(item.id)} id={item.id} />
         );
     }
 

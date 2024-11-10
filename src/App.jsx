@@ -12,44 +12,35 @@ function App() {
   const [loading, setLoading] = useState(true);
   const { shop } = useParams();
 
-  function addToCart(info, index) {
+  function addToCart(info, id) {
     const newCart = Array.from(cart);
-    for (let i=0; i<newCart.length; i++) {
-      if (newCart[i].item.id === info.item.id) {
-        newCart[i].quantity++;
-        setCart(newCart);
-        setItemQuantity(itemQuantity+1);
-        return;
-      }
+    if (newCart[id] && newCart[id].item.id === id) {
+      newCart[id].quantity++;
     }
-    newCart.push(info);
-    setItemQuantity(itemQuantity+1);
+    else {
+      newCart[id] = info;
+    }
     setCart(newCart);
+    setItemQuantity(itemQuantity+1);
   }
 
   function getQuantity(id) {
-    const found = cart.find((info) => info.item.id === id);
+    const found = cart.find((info) => (info && info.item.id === id));
     if (found) return found.quantity;
     return 0;
   }
 
-  function updateQuantity(index, newValue) {
+  function updateQuantity(id, newValue) {
     const newCart = Array.from(cart);
-    setItemQuantity(itemQuantity-newCart[index].quantity+newValue);
-    newCart[index].quantity = newValue;
+    setItemQuantity(itemQuantity-newCart[id].quantity+newValue);
+    newCart[id].quantity = newValue;
     setCart(newCart);
   }
 
   function deleteInfo(id) {
-    const newCart = cart.filter((info) => {
-      if (info.item.id !== id) {
-        return true;
-      }
-      else {
-        setItemQuantity(itemQuantity-info.quantity);
-        return false;
-      }
-    });
+    const newCart = Array.from(cart);
+    setItemQuantity(itemQuantity-newCart[id].quantity);
+    newCart[id] = undefined;
     setCart(newCart);
   }
 
@@ -69,6 +60,16 @@ function App() {
       .catch((error) => console.log(error)
       );
   }, []);
+
+  // useEffect(() => {
+  //   fetch('https://fakestoreapi.com/products', {mode:'cors'})
+  //   .then((response) => {
+  //     if (response.status > 400) {
+  //       throw new Error("server error");
+  //     }
+  //     console.log(response.json());
+  //   })
+  // }, []);
 
   return (
     <div className='main'>

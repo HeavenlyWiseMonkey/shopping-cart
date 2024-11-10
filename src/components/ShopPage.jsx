@@ -3,19 +3,19 @@ import Loading from './Loading'
 
 import { useState } from 'react';
 
-function CheckOutCard({item, quantity, index, updateQuantity, deleteInfo}) {
+function CheckOutCard({item, quantity, updateQuantity, deleteInfo}) {
     const cryptoId = self.crypto.randomUUID();
     const [qty, setQty] = useState(quantity);
     const [edit, setEdit] = useState(false);
 
-    function editAndUpdate(cryptoId, index, id) {
+    function editAndUpdate(cryptoId, id) {
         const input = document.getElementById(cryptoId);
         const newValue = Number(input.value);
         if (newValue===0) {
             deleteInfo(id);
         }
         else {
-            updateQuantity(index, newValue);
+            updateQuantity(id, newValue);
         }
         setEdit(false);
     }
@@ -27,7 +27,7 @@ function CheckOutCard({item, quantity, index, updateQuantity, deleteInfo}) {
             {(edit) ? <div className='editQuantity'>
                 <label htmlFor={cryptoId}>Quantity</label>
                 <input id={cryptoId} value={qty} onChange={(e) => setQty(e.target.value)}></input>
-                <button type='button' onClick={() => editAndUpdate(cryptoId, index, item.id)}>Update</button>
+                <button type='button' onClick={() => editAndUpdate(cryptoId, item.id)}>Update</button>
             </div> :
             <div className='quantity'>
                 <p>Quantity: {qty}</p>
@@ -41,8 +41,8 @@ function CheckOutCard({item, quantity, index, updateQuantity, deleteInfo}) {
 
 export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo}) {
     let cards;
-    cards = cart.map((info, i=0) => 
-        <CheckOutCard key={info.item.id} item={info.item} quantity={getQuantity(info.item.id)} index={i++} updateQuantity={updateQuantity} deleteInfo={deleteInfo} />
+    cards = cart.map((info) =>
+        (info) && <CheckOutCard key={info.item.id} item={info.item} quantity={getQuantity(info.item.id)} updateQuantity={updateQuantity} deleteInfo={deleteInfo} />
     );
     return (
         <div className="ShopPage">
