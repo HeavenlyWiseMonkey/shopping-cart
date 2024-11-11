@@ -12,7 +12,7 @@ function Card({item, addToCart, quantity, id}) {
             <img src={item.image} />
             <p className='cardTitle'>{item.title}</p>
             <p>{item.description}</p>
-            <p className='price'>${item.price}</p>
+            <p className='price'>${item.price.toFixed(2)}</p>
             <Rating rate={item.rating.rate} count={item.rating.count} />
             <button type='button' onClick={() => addToCart(Info(item, 1), id)}>Add to Cart</button>
             {(quantity > 0) && <p>{quantity} in Cart</p>}

@@ -24,7 +24,8 @@ function CheckOutCard({item, quantity, updateQuantity, deleteInfo}) {
         <div className='checkOutCard'>
             <img src={item.image} />
             <div className='information'>
-                <p>{item.title}</p>
+                <p className='cardTitle'>{item.title}</p>
+                {/* toggle edit on and off */}
                 <div className='edit'>
                     {(edit) ? <div className='editQuantity'>
                         <label htmlFor={cryptoId}>Quantity</label>
@@ -38,7 +39,7 @@ function CheckOutCard({item, quantity, updateQuantity, deleteInfo}) {
                     <button type='button' onClick={() => deleteInfo(item.id)}>Delete</button>
                 </div>
             </div>
-            <p className='price'>${item.price}</p>
+            <p className='price'>${item.price.toFixed(2)}</p>
         </div>
     )
 }
