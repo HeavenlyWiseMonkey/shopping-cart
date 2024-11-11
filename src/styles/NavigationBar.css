@@ -1,22 +1,43 @@
 .NavigationBar {
     grid-row: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 5fr 9fr 1fr;
     position: relative;
     background-color: #49759C;
+}
+
+.NavigationBar > a {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .title {
     color: #ffffff;
     font-size: 2rem;
     font-weight: 1000;
-    margin: 32px 0;
+    margin: 16px 0;
 }
 
-.shopLink {
-    position: absolute;
-    right: 30px;
+.categories {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories > a {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin: 0 48px;
+    padding: 16px;
+}
+
+.cart {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .shopIcon {
