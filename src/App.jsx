@@ -9,8 +9,16 @@ function App() {
   const [shopData, setShopData] = useState(null);
   const [cart, setCart] = useState([]);
   const [itemQuantity, setItemQuantity] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const { shop } = useParams();
+
+  // FIX SUBTOTAL ROUNDING:
+  // Math.round(subtotal * 100) / 100
+
+  function roundDecimal(num) {
+    return Math.round(num * 100) /100;
+  }
 
   function addToCart(info, id) {
     const newCart = Array.from(cart);
@@ -20,6 +28,8 @@ function App() {
     else {
       newCart[id] = info;
     }
+    const newSubtotal = subtotal+newCart[id].item.price;
+    setSubtotal(roundDecimal(newSubtotal.toFixed(2)));
     setCart(newCart);
     setItemQuantity(itemQuantity+1);
   }
@@ -32,14 +42,19 @@ function App() {
 
   function updateQuantity(id, newValue) {
     const newCart = Array.from(cart);
-    setItemQuantity(itemQuantity-newCart[id].quantity+newValue);
+    const newSubtotal = subtotal+(newValue-newCart[id].quantity)*newCart[id].item.price;
+    setSubtotal(roundDecimal(newSubtotal).toFixed(2));
+    setItemQuantity(itemQuantity+newValue-newCart[id].quantity);
     newCart[id].quantity = newValue;
     setCart(newCart);
   }
 
   function deleteInfo(id) {
     const newCart = Array.from(cart);
-    setItemQuantity(itemQuantity-newCart[id].quantity);
+    const info = newCart[id];
+    const newSubtotal = subtotal-info.item.price*info.quantity;
+    setSubtotal(roundDecimal(newSubtotal).toFixed(2));
+    setItemQuantity(itemQuantity-info.quantity);
     newCart[id] = undefined;
     setCart(newCart);
   }
@@ -75,7 +90,7 @@ function App() {
     <div className='main'>
       <NavigationBar itemQuantity={itemQuantity} />
       {(shop === 'shopping-cart') ? (
-        <ShopPage cart={cart} getQuantity={getQuantity} updateQuantity={updateQuantity} deleteInfo={deleteInfo} />
+        <ShopPage cart={cart} getQuantity={getQuantity} updateQuantity={updateQuantity} deleteInfo={deleteInfo} itemQuantity={itemQuantity} subtotal={subtotal} />
       ) : (
         <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       )

@@ -1,12 +1,49 @@
 .ShopPage {
     grid-row: 2;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
 }
 
-/* .checkOutCard {
-    height: 300px;
-} */
+.checkOutCard {
+    grid-column: 1;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 2fr 10fr 1fr;
+    border: 1px solid #C8C8C8;
+    border-bottom: 0;
+    padding: 10px;
+}
 
 .checkOutCard > img {
+    grid-column: 1;
     object-fit: cover;
     height: 300px;
+}
+
+.information {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.edit, .quantity {
+    display: flex;
+    gap: 10px;
+}
+
+.checkOutCard > .price {
+    grid-column: 3;
+}
+
+.subtotalBox {
+    grid-column: 2;
+    grid-row: 1;
+    border: 1px solid #C8C8CB;
+    border-left: 0;
+    padding: 1px;
+}
+
+.subtotal {
+    font-size: 1.2rem;
 }

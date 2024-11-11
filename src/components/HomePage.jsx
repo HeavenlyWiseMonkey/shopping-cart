@@ -10,9 +10,9 @@ function Card({item, addToCart, quantity, id}) {
     return (
         <div className='card'>
             <img src={item.image} />
-            <p>{item.title}</p>
+            <p className='cardTitle'>{item.title}</p>
             <p>{item.description}</p>
-            <p>${item.price}</p>
+            <p className='price'>${item.price}</p>
             <Rating rate={item.rating.rate} count={item.rating.count} />
             <button type='button' onClick={() => addToCart(Info(item, 1), id)}>Add to Cart</button>
             {(quantity > 0) && <p>{quantity} in Cart</p>}

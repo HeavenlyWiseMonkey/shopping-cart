@@ -23,23 +23,36 @@ function CheckOutCard({item, quantity, updateQuantity, deleteInfo}) {
     return (
         <div className='checkOutCard'>
             <img src={item.image} />
-            <p>{item.title}</p>
-            {(edit) ? <div className='editQuantity'>
-                <label htmlFor={cryptoId}>Quantity</label>
-                <input id={cryptoId} value={qty} onChange={(e) => setQty(e.target.value)}></input>
-                <button type='button' onClick={() => editAndUpdate(cryptoId, item.id)}>Update</button>
-            </div> :
-            <div className='quantity'>
-                <p>Quantity: {qty}</p>
-                <button type='button' onClick={() => setEdit(true)}>Edit</button>
-            </div>}
-            <button type='button' onClick={() => deleteInfo(item.id)}>Delete</button>
-            <p>${item.price}</p>
+            <div className='information'>
+                <p>{item.title}</p>
+                <div className='edit'>
+                    {(edit) ? <div className='editQuantity'>
+                        <label htmlFor={cryptoId}>Quantity</label>
+                        <input id={cryptoId} value={qty} onChange={(e) => setQty(e.target.value)}></input>
+                        <button type='button' onClick={() => editAndUpdate(cryptoId, item.id)}>Update</button>
+                    </div> :
+                    <div className='quantity'>
+                        <p>Quantity: {qty}</p>
+                        <button type='button' onClick={() => setEdit(true)}>Edit</button>
+                    </div>}
+                    <button type='button' onClick={() => deleteInfo(item.id)}>Delete</button>
+                </div>
+            </div>
+            <p className='price'>${item.price}</p>
         </div>
     )
 }
 
-export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo}) {
+function Subtotal({itemQuantity, subtotal}) {
+    return (
+        <div className='subtotalBox'>
+            <p className='subtotal'>Subtotal ({itemQuantity} items): <span className='price'>${subtotal}</span></p>
+            <button type='button'>Proceed to Checkout</button>
+        </div>
+    )
+}
+
+export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo, itemQuantity, subtotal}) {
     let cards;
     cards = cart.map((info) =>
         (info) && <CheckOutCard key={info.item.id} item={info.item} quantity={getQuantity(info.item.id)} updateQuantity={updateQuantity} deleteInfo={deleteInfo} />
@@ -47,6 +60,7 @@ export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo}
     return (
         <div className="ShopPage">
             {(cart.length) ? cards : <p>No items in cart</p>}
+            {(cart.length>0) && <Subtotal itemQuantity={itemQuantity} subtotal={subtotal} />}
         </div>
     )
 }

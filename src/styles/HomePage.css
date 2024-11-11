@@ -15,6 +15,20 @@
     height: 300px;
 }
 
+.card > p, .rating {
+    margin: 32px 0;
+}
+
+.cardTitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 .star {
     font-size: x-large;
     width: 22px;
