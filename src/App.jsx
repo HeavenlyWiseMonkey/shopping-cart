@@ -13,9 +13,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const { shop } = useParams();
 
-  // FIX SUBTOTAL ROUNDING:
-  // Math.round(subtotal * 100) / 100
-
   function roundDecimal(num) {
     return Math.round(num * 100) /100;
   }
@@ -60,41 +57,42 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products/category/electronics', {mode: 'cors'})
-      .then((response) => {
-        if (response.status >= 400) {
-          throw new Error("server error");
-        }
-        return response.json();
-      })
-      .then((json) => {
-        setLoading(false);
-        return setShopData(json);
+    fetch('https://fakestoreapi.com/products', {mode:'cors'})
+    .then((response) => {
+      if (response.status > 400) {
+        throw new Error("server error");
       }
-      )
-      .catch((error) => console.log(error)
-      );
+      console.log(response.json());
+      return response.json();
+    })
+    .then((json) => {
+      setLoading(false);
+      return setShopData(json);
+    })
+    .catch((error) => console.log(error));
   }, []);
-
-  // useEffect(() => {
-  //   fetch('https://fakestoreapi.com/products', {mode:'cors'})
-  //   .then((response) => {
-  //     if (response.status > 400) {
-  //       throw new Error("server error");
-  //     }
-  //     console.log(response.json());
-  //   })
-  // }, []);
 
   return (
     <div className='main'>
       <NavigationBar itemQuantity={itemQuantity} />
       {(shop === 'shopping-cart') ? (
         <ShopPage cart={cart} getQuantity={getQuantity} updateQuantity={updateQuantity} deleteInfo={deleteInfo} itemQuantity={itemQuantity} subtotal={subtotal} />
-      ) : (
+      ) : 
+      (shop === 'electronics') ? (
+        <HomePage shopData={shopData.slice(8,14)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+      ) :
+      (shop === 'jewelery') ? (
+        <HomePage shopData={shopData.slice(4,8)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+      ) :
+      (shop === 'men-clothing') ? (
+        <HomePage shopData={shopData.slice(0,4)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+      ) :
+      (shop === 'women-clothing') ? (
+        <HomePage shopData={shopData.slice(14,20)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+      ) :
+      (
         <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
-      )
-      }
+      )}
     </div>
   )
 }

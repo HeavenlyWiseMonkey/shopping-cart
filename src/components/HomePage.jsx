@@ -5,7 +5,6 @@ function Info(item, quantity) {
     return {item, quantity}
 }
 
-// Added index
 function Card({item, addToCart, quantity, id}) {
     return (
         <div className='card'>
@@ -37,7 +36,6 @@ function Rating({rate, count}) {
 
 export default function HomePage({shopData, loading, addToCart, getQuantity}) {
     let cards;
-    // Added index
     if (shopData) {
         cards = shopData.map((item) =>
             <Card key={item.id} item={item} addToCart={addToCart} quantity={getQuantity(item.id)} id={item.id} />

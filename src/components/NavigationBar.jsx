@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 function Categories() {
     return (
         <div className='categories'>
-            <Link>Electronics</Link>
-            <Link>Jewelery</Link>
-            <Link>Men's Clothing</Link>
-            <Link>Women's Clothing</Link>
+            <Link to='/electronics'>Electronics</Link>
+            <Link to='/jewelery'>Jewelery</Link>
+            <Link to='/men-clothing'>Men's Clothing</Link>
+            <Link to='/women-clothing'>Women's Clothing</Link>
         </div>
     )
 }

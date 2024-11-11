@@ -4,26 +4,27 @@
     grid-template-columns: 5fr 9fr 1fr;
     position: relative;
     background-color: #49759C;
+    padding: 16px 0;
+}
+
+.NavigationBar > a, .categories, .cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .NavigationBar > a {
     grid-column: 1;
-    display: flex;
-    justify-content: center;
 }
 
 .title {
     color: #ffffff;
     font-size: 2rem;
     font-weight: 1000;
-    margin: 16px 0;
 }
 
 .categories {
     grid-column: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .categories > a {
@@ -35,9 +36,10 @@
 
 .cart {
     grid-column: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.shopLink {
+    position: relative;
 }
 
 .shopIcon {
