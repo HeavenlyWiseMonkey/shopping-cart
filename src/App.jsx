@@ -62,7 +62,6 @@ function App() {
       if (response.status > 400) {
         throw new Error("server error");
       }
-      console.log(response.json());
       return response.json();
     })
     .then((json) => {
