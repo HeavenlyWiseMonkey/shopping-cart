@@ -60,7 +60,7 @@ export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo,
     );
     return (
         <div className="ShopPage">
-            {(cart.length) ? cards : <p>No items in cart</p>}
+            {(cart.length) ? cards : <p className='noItems'>No items in cart</p>}
             {(subtotal > 0) && <Subtotal itemQuantity={itemQuantity} subtotal={subtotal} />}
         </div>
     )

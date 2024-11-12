@@ -63,6 +63,16 @@
     font-size: 1.2rem;
 }
 
+.noItems {
+    font-size: 3rem;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 @media (width <= 768px) {
     .ShopPage {
         display: block;
