@@ -1,5 +1,4 @@
 .NavigationBar {
-    grid-row: 1;
     display: grid;
     grid-template-columns: 5fr 9fr 1fr;
     position: relative;
@@ -56,4 +55,56 @@
     position: absolute;
     bottom: -5px;
     right: -5px;
+}
+
+@media (width <= 768px) {
+    .title {
+        font-size: 1.5rem;
+    }
+    .categories > a {
+        font-size: 0.8rem;
+        padding: 8px;
+        margin: 0 24px;
+    }
+    .shopIcon {
+        width: 40px;
+    }
+    .cartNumber {
+        padding: 4px 6px;
+        bottom: 3px;
+        right: -3px;
+    }
+}
+
+@media (width <= 425px) {
+    .title {
+        font-size: 1rem;
+    }
+    .categories > a {
+        font-size: 0.7rem;
+        padding: 4px;
+        margin: 0 4px;
+    }
+    .shopIcon {
+        width: 30px;
+    }
+    .cartNumber {
+        padding: 2px 4px;
+        bottom: 2px;
+        right: -2px;
+    }
+}
+
+@media (width <= 320px) {
+    .title {
+        font-size: 0.7rem;
+    }
+    .categories > a {
+        padding: 2px;
+        margin: 0 2px;
+        font-size: 0.5rem;
+    }
+    .shopIcon {
+        width: 25px;
+    }
 }

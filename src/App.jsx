@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { useParams } from 'react-router-dom'
 import NavigationBar from './components/NavigationBar'
-import HomePage from './components/HomePage'
+import CategoryPage from './components/CategoryPage'
 import ShopPage from './components/ShopPage'
+import Loading from './components/Loading'
 
 function App() {
   const [shopData, setShopData] = useState(null);
@@ -26,7 +27,7 @@ function App() {
       newCart[id] = info;
     }
     const newSubtotal = subtotal+newCart[id].item.price;
-    setSubtotal(roundDecimal(newSubtotal.toFixed(2)));
+    setSubtotal(roundDecimal(newSubtotal));
     setCart(newCart);
     setItemQuantity(itemQuantity+1);
   }
@@ -40,7 +41,7 @@ function App() {
   function updateQuantity(id, newValue) {
     const newCart = Array.from(cart);
     const newSubtotal = subtotal+(newValue-newCart[id].quantity)*newCart[id].item.price;
-    setSubtotal(roundDecimal(newSubtotal).toFixed(2));
+    setSubtotal(roundDecimal(newSubtotal));
     setItemQuantity(itemQuantity+newValue-newCart[id].quantity);
     newCart[id].quantity = newValue;
     setCart(newCart);
@@ -50,7 +51,7 @@ function App() {
     const newCart = Array.from(cart);
     const info = newCart[id];
     const newSubtotal = subtotal-info.item.price*info.quantity;
-    setSubtotal(roundDecimal(newSubtotal).toFixed(2));
+    setSubtotal(roundDecimal(newSubtotal));
     setItemQuantity(itemQuantity-info.quantity);
     newCart[id] = undefined;
     setCart(newCart);
@@ -74,23 +75,24 @@ function App() {
   return (
     <div className='main'>
       <NavigationBar itemQuantity={itemQuantity} />
-      {(shop === 'shopping-cart') ? (
+      {(loading) ? <Loading /> :
+      (shop === 'shopping-cart') ? (
         <ShopPage cart={cart} getQuantity={getQuantity} updateQuantity={updateQuantity} deleteInfo={deleteInfo} itemQuantity={itemQuantity} subtotal={subtotal} />
       ) : 
       (shop === 'electronics') ? (
-        <HomePage shopData={shopData.slice(8,14)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+        <CategoryPage shopData={shopData.slice(8,14)} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       ) :
       (shop === 'jewelery') ? (
-        <HomePage shopData={shopData.slice(4,8)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+        <CategoryPage shopData={shopData.slice(4,8)} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       ) :
       (shop === 'men-clothing') ? (
-        <HomePage shopData={shopData.slice(0,4)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+        <CategoryPage shopData={shopData.slice(0,4)} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       ) :
       (shop === 'women-clothing') ? (
-        <HomePage shopData={shopData.slice(14,20)} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+        <CategoryPage shopData={shopData.slice(14,20)} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       ) :
       (
-        <HomePage shopData={shopData} loading={loading} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
+        <CategoryPage shopData={shopData} addToCart={addToCart} getQuantity={getQuantity} updateQuantity={updateQuantity} />
       )}
     </div>
   )

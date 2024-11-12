@@ -47,7 +47,7 @@ function CheckOutCard({item, quantity, updateQuantity, deleteInfo}) {
 function Subtotal({itemQuantity, subtotal}) {
     return (
         <div className='subtotalBox'>
-            <p className='subtotal'>Subtotal ({itemQuantity} items): <span className='price'>${subtotal}</span></p>
+            <p className='subtotal'>Subtotal ({itemQuantity} items): <span className='price'>${subtotal.toFixed(2)}</span></p>
             <button type='button'>Proceed to Checkout</button>
         </div>
     )
@@ -61,7 +61,7 @@ export default function ShopPage({cart, getQuantity, updateQuantity, deleteInfo,
     return (
         <div className="ShopPage">
             {(cart.length) ? cards : <p>No items in cart</p>}
-            {(cart.length>0) && <Subtotal itemQuantity={itemQuantity} subtotal={subtotal} />}
+            {(subtotal > 0) && <Subtotal itemQuantity={itemQuantity} subtotal={subtotal} />}
         </div>
     )
 }

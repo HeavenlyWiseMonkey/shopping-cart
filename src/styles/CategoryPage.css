@@ -1,7 +1,6 @@
-.HomePage {
-    grid-row: 2;
+.CategoryPage {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
     gap: 10px;
 }
 
@@ -12,7 +11,7 @@
 
 .card > img {
     object-fit: cover;
-    height: 300px;
+    width: 100%;
 }
 
 .card > p, .rating {
@@ -51,4 +50,16 @@
     margin-left: -20px;
     width: 10px;
     overflow: hidden;
+}
+
+@media (width <= 768px) {
+    .card {
+        font-size: 0.9rem;
+    }
+}
+
+@media (width <= 320px) {
+    .card {
+        font-size: 0.7rem;
+    }
 }

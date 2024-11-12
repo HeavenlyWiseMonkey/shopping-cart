@@ -1,5 +1,4 @@
 .ShopPage {
-    grid-row: 2;
     display: grid;
     grid-template-columns: 4fr 1fr;
 }
@@ -10,14 +9,14 @@
     gap: 10px;
     grid-template-columns: 2fr 10fr 1fr;
     border: 1px solid #C8C8C8;
-    border-bottom: 0;
+    border-top: 0;
     padding: 10px;
 }
 
 .checkOutCard > img {
     grid-column: 1;
     object-fit: cover;
-    height: 300px;
+    width: 100%;
 }
 
 .information {
@@ -62,4 +61,28 @@
 
 .subtotal {
     font-size: 1.2rem;
+}
+
+@media (width <= 768px) {
+    .ShopPage {
+        display: block;
+    }
+
+    .cardTitle, .edit, .editQuantity > input, .subtotalBox, .subtotal {
+        font-size: 0.9rem;
+    }
+
+    .price {
+        font-size: 1.4rem;
+    }
+}
+
+@media (width <= 425px) {
+    .cardTitle, .edit, .editQuantity > input, .subtotalBox, .subtotal {
+        font-size: 0.7rem;
+    }
+
+    .price {
+        font-size: 1rem;
+    }
 }

@@ -1,5 +1,4 @@
-import '../styles/HomePage.css'
-import Loading from './Loading';
+import '../styles/CategoryPage.css'
 
 function Info(item, quantity) {
     return {item, quantity}
@@ -34,7 +33,7 @@ function Rating({rate, count}) {
     )
 }
 
-export default function HomePage({shopData, loading, addToCart, getQuantity}) {
+export default function CategoryPage({shopData, addToCart, getQuantity}) {
     let cards;
     if (shopData) {
         cards = shopData.map((item) =>
@@ -43,9 +42,8 @@ export default function HomePage({shopData, loading, addToCart, getQuantity}) {
     }
 
     return (
-        <div className="HomePage">
+        <div className="CategoryPage">
             {(shopData) && cards}
-            {(loading) && <Loading />}
         </div>
     )
 }
